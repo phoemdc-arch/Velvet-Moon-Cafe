@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velvet Moon Café | Reservations</title>
+  <link rel="stylesheet" href="Styles.css">
+  <style>
+    /* Whimsical Notification Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 7, 20, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      background: #18122B;
+      border: 1px solid #d9b26a;
+      box-shadow: 0 0 25px rgba(217, 178, 106, 0.25);
+      border-radius: 12px;
+      padding: 2.5rem;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      color: #F3E8FF;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-card h3 {
+      color: #d9b26a;
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-card p {
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #D1D5DB;
+    }
+
+    .modal-btn {
+      background: linear-gradient(135deg, #d9b26a, #b3883b);
+      color: #0A0714;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .modal-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(217, 178, 106, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / NAVIGATION -->
+  <header>
+    <a href="index.html" class="logo-container">
+      <img src="images/logo.png" alt="Velvet Moon Logo" class="logo-img">
+      <span class="logo-text">Velvet Moon <em class="script-text">Café</em></span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reservations.html" class="active">Reservations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero hero-reservations">
+    <div class="hero-scene" aria-hidden="true">
+      <div class="hero-scene-glow"></div>
+      <img
+        class="hero-scene-img"
+        src="images/reservations bg.jpg"
+        alt=""
+        fetchpriority="high"
+        decoding="async"
+        onerror="this.style.display='none'"
+      >
+      <div class="hero-scene-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-badge">✦ Claim Your Moonlit Corner ✦</p>
+      <h1>Reserve a table under the <span class="script-text">stars</span></h1>
+      <p class="hero-desc">Secure a cozy alcove for late-night study, romantic whispers, or quiet contemplation.</p>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <svg viewBox="0 0 700 40"><path d="M0 20 C 100 0, 150 40, 250 20 S 400 0, 500 20 S 650 40, 700 20" /></svg>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <h2 class="page-title">Table Spellbook</h2>
+    <p class="page-subtitle">Fill in your details to summon a table for your nocturnal visit</p>
+
+    <form id="reservationForm" style="max-width: 600px; margin: 2rem auto; display: flex; flex-direction: column; gap: 1.25rem;">
+      <div>
+        <label for="name" style="display: block; margin-bottom: 0.5rem; color: #d9b26a;">Your Full Name</label>
+        <input type="text" id="name" required placeholder="e.g., Luna Starlight" style="width: 100%; padding: 0.8rem; background: #18122B; border: 1px solid #3B2D54; color: #fff; border-radius: 6px;">
+      </div>
+
+      <div>
+        <label for="email" style="display: block; margin-bottom: 0.5rem; color: #d9b26a;">Celestial Mail (Email)</label>
+        <input type="email" id="email" required placeholder="luna@cosmos.com" style="width: 100%; padding: 0.8rem; background: #18122B; border: 1px solid #3B2D54; color: #fff; border-radius: 6px;">
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <div style="flex: 1;">
+          <label for="date" style="display: block; margin-bottom: 0.5rem; color: #d9b26a;">Date</label>
+          <input type="date" id="date" required style="width: 100%; padding: 0.8rem; background: #18122B; border: 1px solid #3B2D54; color: #fff; border-radius: 6px;">
+        </div>
+        <div style="flex: 1;">
+          <label for="time" style="display: block; margin-bottom: 0.5rem; color: #d9b26a;">Time</label>
+          <input type="time" id="time" required style="width: 100%; padding: 0.8rem; background: #18122B; border: 1px solid #3B2D54; color: #fff; border-radius: 6px;">
+        </div>
+      </div>
+
+      <div>
+        <label for="guests" style="display: block; margin-bottom: 0.5rem; color: #d9b26a;">Number of Guests</label>
+        <select id="guests" style="width: 100%; padding: 0.8rem; background: #18122B; border: 1px solid #3B2D54; color: #fff; border-radius: 6px;">
+          <option value="1">1 Solitary Dreamer</option>
+          <option value="2">2 Stargazers</option>
+          <option value="3-4">3-4 Cosmic Wanderers</option>
+          <option value="5+">5+ Night Coven Gathering</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn" style="margin-top: 1rem; cursor: pointer;">✦ Summon Reservation ✦</button>
+    </form>
+  </main>
+
+  <!-- NOTIFICATION MODAL -->
+  <div class="modal-overlay" id="reservationModal">
+    <div class="modal-card">
+      <h3>✦ Reservation Sealed! ✦</h3>
+      <p>The stars have aligned and your table is saved. We eagerly await your arrival under the velvet night sky.</p>
+      <button class="modal-btn" onclick="closeModal()">Blessed Be ✦</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>✦ Velvet Moon Café · Brewed with magic since 2019 ✦</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    const form = document.getElementById('reservationForm');
+    const modal = document.getElementById('reservationModal');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      modal.classList.add('active');
+      form.reset();
+    });
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+  </script>
+
+</body>
+</html>
